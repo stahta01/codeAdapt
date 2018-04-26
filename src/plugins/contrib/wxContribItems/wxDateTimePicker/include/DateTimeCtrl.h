@@ -1,6 +1,7 @@
 #ifndef WXDATETIMEPICKERCTRL_H
 #define WXDATETIMEPICKERCTRL_H
 
+#include <wx/defs.h>    // Prevents a redefined warning on HAVE_VARIADIC_MACROS
 #include <wx/version.h>
 
 #if wxCHECK_VERSION(3, 0, 0)
