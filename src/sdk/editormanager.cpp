@@ -1128,7 +1128,7 @@ struct OpenContainingFolderData
     OpenContainingFolderData(const wxString &command, bool select) : command(command), supportSelect(select) {}
 };
 
-#if !defined(__WXMSW__) && !defined(__WXMAC__)
+#if !defined(__WINDOWS__) && !defined(__WXMAC__)
 /// Try to detect if the file browser used by the user is nautilus (either selected by xdg-open or manually specified).
 /// Newer versions of nautilus (3.0.2) support selecting files, so we modify the returned command to pass the --select
 /// flag.
@@ -1185,7 +1185,7 @@ static OpenContainingFolderData detectNautilus(const wxString &command, ConfigMa
     }
     return OpenContainingFolderData(command, false);
 }
-#endif // !__WXMSW__ && !__WXMAC__
+#endif // !__WINDOWS__ && !__WXMAC__
 
 bool EditorManager::OpenContainingFolder()
 {
@@ -1195,7 +1195,7 @@ bool EditorManager::OpenContainingFolder()
 
     ConfigManager* cfg = Manager::Get()->GetConfigManager(_T("app"));
     const wxString &command = cfg->Read(_T("open_containing_folder"), cbDEFAULT_OPEN_FOLDER_CMD);
-#if defined __WXMSW__ || defined __WXMAC__
+#if defined __WINDOWS__ || defined __WXMAC__
     OpenContainingFolderData cmdData(command, true);
 #else
     OpenContainingFolderData cmdData=detectNautilus(command, cfg);

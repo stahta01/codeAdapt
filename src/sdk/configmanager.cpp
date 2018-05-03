@@ -87,7 +87,7 @@ namespace
 {
     wxString DetermineExecutablePath()
     {
-        #ifdef __WXMSW__
+        #ifdef __WINDOWS__
             wxChar name[MAX_PATH];
             GetModuleFileName(0L, name, MAX_PATH);
             wxFileName fname(name);
