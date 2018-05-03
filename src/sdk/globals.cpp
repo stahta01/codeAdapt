@@ -47,7 +47,7 @@
 #include "tinywxuni.h"
 #include "filegroupsandmasks.h"
 
-#ifndef __WXMSW__
+#ifndef __WINDOWS__
     #include <unistd.h> // readlink
     #include <sys/stat.h> // lstat
 #endif
@@ -62,7 +62,7 @@ const wxString DEFAULT_CONSOLE_TERM  = _T("osascript -e 'tell app \"Terminal\"' 
 #endif
 const wxString DEFAULT_CONSOLE_SHELL = _T("/bin/sh -c");
 
-#if defined __WXMSW__
+#if defined __WINDOWS__
 const wxString cbDEFAULT_OPEN_FOLDER_CMD = _T("explorer.exe /select,");
 #elif defined __WXMAC__
 const wxString cbDEFAULT_OPEN_FOLDER_CMD = _T("open -R");
@@ -1000,7 +1000,7 @@ bool IsSuffixOfPath(wxFileName const & suffix, wxFileName const & path)
 
 bool cbResolveSymLinkedDirPath(wxString& dirpath)
 {
-#ifdef _WIN32
+#ifdef __WINDOWS__
     return false;
 #else
     if (dirpath.empty())
@@ -1048,7 +1048,7 @@ bool cbResolveSymLinkedDirPath(wxString& dirpath)
     }
 
     return false;
-#endif // _WIN32
+#endif // __WINDOWS__
 }
 
 wxString cbResolveSymLinkedDirPathRecursive(wxString dirpath)
@@ -1059,7 +1059,7 @@ wxString cbResolveSymLinkedDirPathRecursive(wxString dirpath)
 }
 
 // function to check the common controls version
-#ifdef __WXMSW__
+#ifdef __WINDOWS__
 #include <windows.h>
 #include <shlwapi.h>
 bool UsesCommonControls6()
@@ -1344,7 +1344,7 @@ namespace platform
 // one thing that's not checked yet are circular symlinks - watch out!
 wxString realpath(const wxString& path)
 {
-#ifdef __WXMSW__
+#ifdef __WINDOWS__
     // no symlinks support on windows
     return path;
 #else
