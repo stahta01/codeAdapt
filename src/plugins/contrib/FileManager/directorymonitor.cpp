@@ -22,7 +22,7 @@ wxDirectoryMonitorEvent::wxDirectoryMonitorEvent(const wxDirectoryMonitorEvent& 
     m_info_uri=wxString(c.m_info_uri.c_str());
 }
 
-#if defined(__WXGTK__) || defined(__WXMAC__)
+#if defined(__WXGTK__) && !defined(__WINDOWS__) || defined(__WXMAC__)
 
 #include <map>
 
@@ -289,7 +289,7 @@ public:
 
 
 #endif
-#ifdef __WXMSW__
+#ifdef __WINDOWS__
 
 #define DEFAULT_MONITOR_FILTER_WIN32 FILE_NOTIFY_CHANGE_FILE_NAME|FILE_NOTIFY_CHANGE_DIR_NAME|FILE_NOTIFY_CHANGE_ATTRIBUTES|FILE_NOTIFY_CHANGE_SIZE|FILE_NOTIFY_CHANGE_LAST_WRITE|FILE_NOTIFY_CHANGE_LAST_ACCESS|FILE_NOTIFY_CHANGE_CREATION|FILE_NOTIFY_CHANGE_SECURITY
 
