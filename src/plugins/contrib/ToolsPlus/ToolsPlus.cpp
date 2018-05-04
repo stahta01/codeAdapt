@@ -403,7 +403,7 @@ void ToolsPlus::OnRunTarget(wxCommandEvent& event)
     } else if (console)
     {
         wxString cmdline;
-#ifndef __WXMSW__
+#ifndef __WINDOWS__
         // for non-win platforms, use m_ConsoleTerm to run the console app
         wxString term = Manager::Get()->GetConfigManager(_T("app"))->Read(_T("/console_terminal"), DEFAULT_CONSOLE_TERM);
         term.Replace(_T("$TITLE"), _T("'") + consolename + _T("'"));
