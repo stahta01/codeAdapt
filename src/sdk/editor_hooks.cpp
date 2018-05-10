@@ -24,7 +24,7 @@
     #include <cstdlib>   // free the memory created by abi::__cxa_demangle
 #endif // EDITOR_HOOK_PERFORMANCE_MEASURE
 
-#include "wx/wxscintilla.h"
+#include <cbstyledtextctrl.h>
 
 #include <map>
 

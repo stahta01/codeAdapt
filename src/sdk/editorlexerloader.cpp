@@ -15,9 +15,9 @@
     #include "logmanager.h"
     #include <wx/dynarray.h>
     #include <wx/regex.h>
-    #include <wx/wxscintilla.h>
 #endif
 
+#include "cbstyledtextctrl.h"
 #include "editorcolourset.h"
 #include "editorlexerloader.h"
 #include "filemanager.h"

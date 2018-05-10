@@ -11,7 +11,6 @@
 
 #include "disassemblydlg.h"
 #ifndef CB_PRECOMP
-    #include <wx/wxscintilla.h>
     #include <wx/intl.h>
     #include <wx/xrc/xmlres.h>
     #include <wx/textctrl.h>
@@ -30,6 +29,7 @@
     #include "manager.h"
     #include "projectmanager.h"
 #endif
+#include "cbstyledtextctrl.h"
 
 #include "debuggermanager.h"
 #include "filefilters.h"
