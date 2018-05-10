@@ -25,7 +25,6 @@
     #include <wx/wizard.h>
     #include <wx/xrc/xmlres.h>
 
-    #include <wx/wxscintilla.h> // CB Header
     #include <cbexception.h>
     #include <cbproject.h>
     #include <compiler.h>
@@ -39,6 +38,7 @@
     #include <projectmanager.h>
     #include <scriptingmanager.h>
 #endif // CB_PRECOMP
+#include <cbstyledtextctrl.h>
 #include <scripting/bindings/sc_base_types.h>
 
 #include "wiz.h"

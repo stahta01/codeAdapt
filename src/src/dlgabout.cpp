@@ -26,8 +26,8 @@
 
     #include "licenses.h"
     #include "configmanager.h"
-    #include "wx/wxscintilla.h"
 #endif
+#include "cbstyledtextctrl.h"
 
 #include <wx/bitmap.h>
 #include <wx/dcmemory.h>    // wxMemoryDC
