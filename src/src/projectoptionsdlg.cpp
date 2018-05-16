@@ -38,7 +38,9 @@
 
 #include <wx/radiobox.h>
 
-#include "scripting/sqplus/sqplus.h"
+#ifdef CA_ENABLE_SCRIPTING
+    #include "scripting/sqplus/sqplus.h"
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 #include "annoyingdialog.h"
 #include "configurationpanel.h"
@@ -87,12 +89,14 @@ BEGIN_EVENT_TABLE(ProjectOptionsDlg, wxScrollingDialog)
     EVT_CHECKBOX(  XRCID("chkCreateStaticLib"),                 ProjectOptionsDlg::OnCreateImportFileClick)
     EVT_CHECKBOX(  XRCID("chkCreateDefFile"),                   ProjectOptionsDlg::OnCreateDefFileClick)
 
+#ifdef CA_ENABLE_SCRIPTING
     EVT_TREE_SEL_CHANGED(XRCID("tcOverview"),                   ProjectOptionsDlg::OnScriptsOverviewSelChanged)
     EVT_BUTTON(XRCID("btnCheckScripts"),                        ProjectOptionsDlg::OnCheckScripts)
     EVT_BUTTON(XRCID("btnAddPreScripts"),                       ProjectOptionsDlg::OnAddScript)
     EVT_BUTTON(XRCID("btnRemovePreScripts"),                    ProjectOptionsDlg::OnRemoveScript)
     EVT_SPIN_UP(XRCID("spnPreScripts"),                         ProjectOptionsDlg::OnScriptMoveUp)
     EVT_SPIN_DOWN(XRCID("spnPreScripts"),                       ProjectOptionsDlg::OnScriptMoveDown)
+#endif // #ifdef CA_ENABLE_SCRIPTING
 END_EVENT_TABLE()
 
 // class constructor
@@ -961,6 +965,7 @@ void ProjectOptionsDlg::OnScriptsOverviewSelChanged(cb_unused wxTreeEvent& event
     FillScripts();
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 bool ProjectOptionsDlg::IsScriptValid(ProjectBuildTarget* target, const wxString& script)
 {
     static const wxString clearout_buildscripts = _T("SetBuildOptions <- null;");
@@ -984,6 +989,7 @@ bool ProjectOptionsDlg::IsScriptValid(ProjectBuildTarget* target, const wxString
         return false;
     }
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 bool ProjectOptionsDlg::ValidateTargetName(const wxString& name)
 {
@@ -1015,6 +1021,7 @@ bool ProjectOptionsDlg::ValidateTargetName(const wxString& name)
     return true;
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 bool ProjectOptionsDlg::DoCheckScripts(CompileTargetBase* base)
 {
     const wxArrayString& scripts = base->GetBuildScripts();
@@ -1110,6 +1117,7 @@ void ProjectOptionsDlg::OnRemoveScript(cb_unused wxCommandEvent& event)
     ctrl->Delete(isel);
     ctrl->SetSelection(isel < (int)(ctrl->GetCount()) ? isel : --isel );
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 void ProjectOptionsDlg::OnPlatform(wxCommandEvent& event)
 {

@@ -39,7 +39,9 @@
 #include <projectmanager.h>
 #include <scriptingmanager.h>
 #include <sdk_events.h>
-#include <sqplus.h>
+#ifdef CA_ENABLE_SCRIPTING
+    #include <sqplus.h>
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 #include "appglobals.h"
 #include "associations.h"
@@ -711,7 +713,9 @@ bool CodeBlocksApp::OnInit()
         InitDebugConsole();
 
         Manager::SetBatchBuild(m_Batch || !m_Script.IsEmpty());
+#ifdef CA_ENABLE_SCRIPTING
         Manager::Get()->GetScriptingManager();
+#endif // #ifdef CA_ENABLE_SCRIPTING
         MainFrame* frame = nullptr;
         frame = InitFrame();
         m_Frame = frame;
@@ -743,6 +747,7 @@ bool CodeBlocksApp::OnInit()
             return true;
         }
 
+#ifdef CA_ENABLE_SCRIPTING
         if (!m_Script.IsEmpty())
         {
             s_Loading = false;
@@ -755,9 +760,11 @@ bool CodeBlocksApp::OnInit()
             frame->Close();
             return true;
         }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
         CheckVersion();
 
+#ifdef CA_ENABLE_SCRIPTING
         // run startup script
         try
         {
@@ -769,6 +776,7 @@ bool CodeBlocksApp::OnInit()
         {
             Manager::Get()->GetScriptingManager()->DisplayErrors(&exception);
         }
+#endif // #ifdef CA_ENABLE_SCRIPTING
         Manager::ProcessPendingEvents();
 
         // finally, show the app
@@ -801,10 +809,12 @@ bool CodeBlocksApp::OnInit()
     {
         exception.ShowErrorMessage();
     }
+#ifdef CA_ENABLE_SCRIPTING
     catch (SquirrelError& exception)
     {
         Manager::Get()->GetScriptingManager()->DisplayErrors(&exception);
     }
+#endif // #ifdef CA_ENABLE_SCRIPTING
     catch (const char* message)
     {
         wxSafeShowMessage(_T("Exception"), cbC2U(message));
@@ -875,10 +885,12 @@ int CodeBlocksApp::OnRun()
     {
         exception.ShowErrorMessage();
     }
+#ifdef CA_ENABLE_SCRIPTING
     catch (SquirrelError& exception)
     {
         Manager::Get()->GetScriptingManager()->DisplayErrors(&exception);
     }
+#endif // #ifdef CA_ENABLE_SCRIPTING
     catch (const char* message)
     {
         wxSafeShowMessage(_("Exception"), cbC2U(message));

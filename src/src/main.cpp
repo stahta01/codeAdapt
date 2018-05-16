@@ -528,7 +528,9 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(idSettingsCompiler,       MainFrame::OnSettingsCompiler)
     EVT_MENU(idSettingsDebugger,       MainFrame::OnSettingsDebugger)
     EVT_MENU(idPluginsManagePlugins,   MainFrame::OnSettingsPlugins)
+#ifdef CA_ENABLE_SCRIPTING
     EVT_MENU(idSettingsScripting,      MainFrame::OnSettingsScripting)
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     EVT_MENU(wxID_ABOUT, MainFrame::OnHelpAbout)
     EVT_MENU(idHelpTips, MainFrame::OnHelpTips)
@@ -654,8 +656,10 @@ MainFrame::MainFrame(wxWindow* parent)
 
     ShowHideStartPage();
 
+#ifdef CA_ENABLE_SCRIPTING
     RegisterScriptFunctions();
     RunStartupScripts();
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     Manager::Get()->GetLogManager()->DebugLog(_T("Initializing plugins..."));
 }
@@ -763,10 +767,12 @@ void MainFrame::CreateIDE()
     m_LayoutManager.AddPane(m_pEdMan->GetNotebook(), wxAuiPaneInfo().Name(wxT("MainPane")).
                             CentrePane());
 
+#ifdef CA_ENABLE_SCRIPTING
     // script console
     m_pScriptConsole = new ScriptConsole(this, -1);
     m_LayoutManager.AddPane(m_pScriptConsole, wxAuiPaneInfo().Name(wxT("ScriptConsole")).
                             Caption(_("Scripting console")).Float().MinSize(100,100).FloatingPosition(300, 200).Hide());
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     DoUpdateLayout();
     DoUpdateLayoutColours();
@@ -847,6 +853,7 @@ void MainFrame::SetupDebuggerUI()
     }
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 DECLARE_INSTANCE_TYPE(MainFrame);
 
 void MainFrame::RegisterScriptFunctions()
@@ -896,6 +903,7 @@ void MainFrame::RunStartupScripts()
         }
     }
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 void MainFrame::PluginsUpdated(cb_unused cbPlugin* plugin, cb_unused int status)
 {
@@ -4796,12 +4804,14 @@ void MainFrame::OnSettingsPlugins(cb_unused wxCommandEvent& event)
     }
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 void MainFrame::OnSettingsScripting(cb_unused wxCommandEvent& event)
 {
     ScriptingSettingsDlg dlg(this);
     if (dlg.ShowModal() == wxID_OK)
         RunStartupScripts();
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 void MainFrame::OnProjectActivated(CodeBlocksEvent& event)
 {
