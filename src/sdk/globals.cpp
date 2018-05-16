@@ -42,6 +42,7 @@
 #include <algorithm>
 #include <string>
 
+#include "filemanager.h"
 #include "filefilters.h"
 #include "tinywxuni.h"
 #include "filegroupsandmasks.h"
