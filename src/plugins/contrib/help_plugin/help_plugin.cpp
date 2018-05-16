@@ -21,7 +21,6 @@
   #include "editormanager.h"
   #include "globals.h"
   #include "logmanager.h"
-  #include "macrosmanager.h"
   #include "manager.h"
   #include "projectmanager.h"
 #endif
@@ -41,8 +40,12 @@
 #endif
 
 #include <cbstyledtextctrl.h>
+#include <macrosmanager.h>
+
+#ifdef CA_ENABLE_SCRIPTING
 #include <sc_base_types.h>
 #include <sqplus.h>
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 
 #include "help_plugin.h"
@@ -486,6 +489,7 @@ void HelpPlugin::LaunchHelp(const wxString &c_helpfile, bool isExecutable, bool 
   // Support C::B scripts
   if (wxFileName(helpfile).GetExt() == _T("script"))
   {
+#ifdef CA_ENABLE_SCRIPTING
       if (Manager::Get()->GetScriptingManager()->LoadScript(helpfile))
       {
         // help scripts must contain a function with the following signature:
@@ -501,6 +505,7 @@ void HelpPlugin::LaunchHelp(const wxString &c_helpfile, bool isExecutable, bool 
         }
       }
       else
+#endif // #ifdef CA_ENABLE_SCRIPTING
         Manager::Get()->GetLogManager()->DebugLog(_T("Couldn't run script"));
 
       return;
