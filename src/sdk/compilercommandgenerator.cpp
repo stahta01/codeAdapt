@@ -24,8 +24,10 @@
 #include "scriptingmanager.h"
 #include "filefilters.h"
 
-#include "scripting/bindings/sc_base_types.h"
-#include "scripting/sqplus/sqplus.h"
+#ifdef CA_ENABLE_SCRIPTING
+    #include "scripting/bindings/sc_base_types.h"
+    #include "scripting/sqplus/sqplus.h"
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 // move this to globals if needed
 inline wxString UnquoteStringIfNeeded(const wxString& str)
@@ -112,8 +114,10 @@ void CompilerCommandGenerator::Init(cbProject* project)
 		Manager::Get()->ProcessEvent(evt);
 	}
 
+#ifdef CA_ENABLE_SCRIPTING
     // project build scripts
     DoBuildScripts(project, project, _T("SetBuildOptions"));
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     // for each target
     for (int i = 0; i < project->GetBuildTargetsCount(); ++i)
@@ -151,8 +155,10 @@ void CompilerCommandGenerator::Init(cbProject* project)
 			Manager::Get()->ProcessEvent(evt);
         }
 
+#ifdef CA_ENABLE_SCRIPTING
         // target build scripts
         DoBuildScripts(project, target, _T("SetBuildOptions"));
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
         m_DefOutput[target] = SetupOutputFilenames(compiler, target);
         m_Inc[target]       = SetupIncludeDirs(compiler, target);
@@ -510,6 +516,7 @@ void CompilerCommandGenerator::GenerateCommandLine(wxString&           macro,
 #endif
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 /// Apply pre-build scripts for @c base.
 void CompilerCommandGenerator::DoBuildScripts(cbProject* project, CompileTargetBase* target, const wxString& funcName)
 {
@@ -551,6 +558,7 @@ void CompilerCommandGenerator::DoBuildScripts(cbProject* project, CompileTargetB
         }
     }
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 void CompilerCommandGenerator::FixPathSeparators(Compiler* compiler, wxString& inAndOut)
 {

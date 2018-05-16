@@ -166,8 +166,10 @@ class DLLIMPORT PluginManager : public Mgr<PluginManager>, public wxEvtHandler
         PluginManager();
         ~PluginManager() override;
 
+#ifdef CA_ENABLE_SCRIPTING
         void OnScriptMenu(wxCommandEvent& event);
         void OnScriptModuleMenu(wxCommandEvent& event);
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
         /// @return True if the plugin should be loaded, false if not.
         bool ReadManifestFile(const wxString& pluginFilename,

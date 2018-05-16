@@ -6,9 +6,11 @@
 #ifndef SCRIPTBINDINGS_H
 #define SCRIPTBINDINGS_H
 
+#ifdef CA_ENABLE_SCRIPTING
 namespace ScriptBindings
 {
     void RegisterBindings();
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 #endif // SCRIPTBINDINGS_H

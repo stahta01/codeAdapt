@@ -6,6 +6,8 @@
 #ifndef SCRIPTING_H
 #define SCRIPTING_H
 
+#ifdef CA_ENABLE_SCRIPTING
+
 #include <map>
 #include <set>
 
@@ -257,5 +259,7 @@ class DLLIMPORT ScriptingManager : public Mgr<ScriptingManager>, public wxEvtHan
 
 typedef char SQChar; // HACK, MUST match with the type as defined for the dedicated platform in squirrel.h
 void PrintSquirrelToWxString(wxString& msg, const SQChar* s, va_list& vl);
+
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 #endif // SCRIPTING_H

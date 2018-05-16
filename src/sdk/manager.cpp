@@ -233,7 +233,9 @@ void Manager::Shutdown()
     CCManager::Free();
     PluginManager::Free();
     DebuggerManager::Free();
+#ifdef CA_ENABLE_SCRIPTING
     ScriptingManager::Free();
+#endif // #ifdef CA_ENABLE_SCRIPTING
     ProjectManager::Free();
     EditorManager::Free();
     PersonalityManager::Free();
@@ -466,10 +468,12 @@ UserVariableManager* Manager::GetUserVariableManager() const
     return UserVariableManager::Get();
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 ScriptingManager* Manager::GetScriptingManager() const
 {
     return ScriptingManager::Get();
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 ConfigManager* Manager::GetConfigManager(const wxString& name_space) const
 {

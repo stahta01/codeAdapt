@@ -37,7 +37,9 @@ class wxMenu;
 class wxMenuBar;
 class wxToolBar;
 class UserVariableManager;
+#ifdef CA_ENABLE_SCRIPTING
 class ScriptingManager;
+#endif // #ifdef CA_ENABLE_SCRIPTING
 class ConfigManager;
 class FileManager;
 class ColourManager;
@@ -119,7 +121,9 @@ public:
     MacrosManager*       GetMacrosManager()                           const;
     PersonalityManager*  GetPersonalityManager()                      const;
     UserVariableManager* GetUserVariableManager()                     const;
+#ifdef CA_ENABLE_SCRIPTING
     ScriptingManager*    GetScriptingManager()                        const;
+#endif // #ifdef CA_ENABLE_SCRIPTING
     ConfigManager*       GetConfigManager(const wxString& name_space) const;
     FileManager*         GetFileManager()                             const;
     DebuggerManager*     GetDebuggerManager()                         const;

@@ -1394,6 +1394,7 @@ void PluginManager::AskPluginsForModuleMenu(const ModuleType type, wxMenu* menu,
         }
     }
 
+#ifdef CA_ENABLE_SCRIPTING
     // script plugins now
     wxArrayInt ids = ScriptBindings::ScriptPluginWrapper::CreateModuleMenu(type, menu, data);
     for (size_t i = 0; i < ids.GetCount(); ++i)
@@ -1402,6 +1403,7 @@ void PluginManager::AskPluginsForModuleMenu(const ModuleType type, wxMenu* menu,
                 (wxObjectEventFunction) (wxEventFunction) (wxCommandEventFunction)
                 &PluginManager::OnScriptModuleMenu);
     }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 }
 
 void PluginManager::ResetModuleMenu()
@@ -1470,6 +1472,7 @@ int PluginManager::FindSortedMenuItemPosition(wxMenu &popup, const wxString& lab
     return count;
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 void PluginManager::OnScriptMenu(wxCommandEvent& event)
 {
     ScriptBindings::ScriptPluginWrapper::OnScriptMenu(event.GetId());
@@ -1479,6 +1482,7 @@ void PluginManager::OnScriptModuleMenu(wxCommandEvent& event)
 {
     ScriptBindings::ScriptPluginWrapper::OnScriptModuleMenu(event.GetId());
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 cbMimePlugin* PluginManager::GetMIMEHandlerForFile(const wxString& filename)
 {

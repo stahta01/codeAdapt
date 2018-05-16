@@ -65,7 +65,9 @@ class DLLIMPORT CompilerCommandGenerator
           */
         virtual const wxArrayString& GetLinkerSearchDirs(ProjectBuildTarget* target);
     protected:
+#ifdef CA_ENABLE_SCRIPTING
         virtual void DoBuildScripts(cbProject* project, CompileTargetBase* target, const wxString& funcName);
+#endif // #ifdef CA_ENABLE_SCRIPTING
         virtual wxString GetOrderedOptions(const ProjectBuildTarget* target, OptionsRelationType rel, const wxString& project_options, const wxString& target_options);
         virtual wxArrayString GetOrderedOptions(const ProjectBuildTarget* target, OptionsRelationType rel, const wxArrayString& project_options, const wxArrayString& target_options);
         virtual wxArrayString GetOrderedIncludeDirs(Compiler* compiler, ProjectBuildTarget* target);

@@ -66,7 +66,9 @@ protected:
     wxRegEx             m_RE_DOS;
     wxRegEx             m_RE_If;
     wxRegEx             m_RE_IfSp;
+#ifdef CA_ENABLE_SCRIPTING
     wxRegEx             m_RE_Script;
+#endif // #ifdef CA_ENABLE_SCRIPTING
     wxRegEx             m_RE_ToAbsolutePath;
     wxRegEx             m_RE_To83Path;
     wxRegEx             m_RE_RemoveQuotes;

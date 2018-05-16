@@ -6,6 +6,8 @@
 #ifndef SC_PLUGIN_H
 #define SC_PLUGIN_H
 
+#ifdef CA_ENABLE_SCRIPTING
+
 #include "sc_base_types.h"
 #include <wx/dynarray.h>
 
@@ -23,5 +25,6 @@ namespace ScriptBindings
         void OnScriptModuleMenu(int id);
     } // namespace ScriptPluginWrapper
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 #endif // SC_PLUGIN_H

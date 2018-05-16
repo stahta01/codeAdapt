@@ -31,7 +31,9 @@
 #include <wx/stdpaths.h> // wxStandardPaths
 #include <cstdlib>
 
+#ifdef CA_ENABLE_SCRIPTING
 #include "scripting/sqplus/sqplus.h"
+#endif // #ifdef CA_ENABLE_SCRIPTING
 #include "scripting/bindings/scriptbindings.h"
 
 #include "cbstyledtextctrl.h"
@@ -87,7 +89,9 @@ void MacrosManager::Reset()
     m_RE_DOS.Compile(_T("([^%]|^)(%(#?[A-Za-z_0-9.]+)%)"),                               wxRE_EXTENDED | wxRE_NEWLINE);
     m_RE_If.Compile(_T("\\$if\\(([^)]*)\\)[::space::]*(\\{([^}]*)\\})(\\{([^}]*)\\})?"), wxRE_EXTENDED | wxRE_NEWLINE);
     m_RE_IfSp.Compile(_T("[^=!<>]+|(([^=!<>]+)[ ]*(=|==|!=|>|<|>=|<=)[ ]*([^=!<>]+))"),  wxRE_EXTENDED | wxRE_NEWLINE);
+#ifdef CA_ENABLE_SCRIPTING
     m_RE_Script.Compile(_T("(\\[\\[(.*)\\]\\])"),                                        wxRE_EXTENDED | wxRE_NEWLINE);
+#endif // #ifdef CA_ENABLE_SCRIPTING
     m_RE_ToAbsolutePath.Compile(_T("\\$TO_ABSOLUTE_PATH{([^}]*)}"),
 #ifndef __WXMAC__
                                 wxRE_ADVANCED);
@@ -488,12 +492,14 @@ void MacrosManager::ReplaceMacros(wxString& buffer, ProjectBuildTarget* target, 
         }
     }
 
+#ifdef CA_ENABLE_SCRIPTING
     while (m_RE_Script.Matches(buffer))
     {
         search = m_RE_Script.GetMatch(buffer, 1);
         replace = Manager::Get()->GetScriptingManager()->LoadBufferRedirectOutput(m_RE_Script.GetMatch(buffer, 2));
         buffer.Replace(search, replace, false);
     }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     while (m_RE_ToAbsolutePath.Matches(buffer))
     {
