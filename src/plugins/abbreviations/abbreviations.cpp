@@ -14,14 +14,17 @@
     #include <cbstyledtextctrl.h>
     #include <editorcolourset.h>
 #endif
+#include <macrosmanager.h>
 
 #include "abbreviations.h"
 #include "abbreviationsconfigpanel.h"
 
 #include <ccmanager.h>
 #include <editor_hooks.h>
-#include <sqplus.h>
-#include <sc_base_types.h>
+#ifdef CA_ENABLE_SCRIPTING
+    #include <sqplus.h>
+    #include <sc_base_types.h>
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 
 // Register the plugin with Code::Blocks.
@@ -100,7 +103,9 @@ void Abbreviations::OnAttach()
     m_Singleton = this;
 
     LoadAutoCompleteConfig();
+#ifdef CA_ENABLE_SCRIPTING
     RegisterScripting();
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     // hook to editors
     EditorHooks::HookFunctorBase* myhook = new EditorHooks::HookFunctor<Abbreviations>(this, &Abbreviations::EditorEventHook);
@@ -115,7 +120,9 @@ void Abbreviations::OnRelease(cb_unused bool appShutDown)
     // NOTE: after this function, the inherited member variable
     // m_IsAttached will be FALSE...
 
+#ifdef CA_ENABLE_SCRIPTING
     UnregisterScripting();
+#endif // #ifdef CA_ENABLE_SCRIPTING
     SaveAutoCompleteConfig();
 
     if (m_Singleton == this)
@@ -128,6 +135,7 @@ void Abbreviations::OnRelease(cb_unused bool appShutDown)
     ClearAutoCompLanguageMap();
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 void Abbreviations::RegisterScripting()
 {
     Manager::Get()->GetScriptingManager();
@@ -147,6 +155,7 @@ void Abbreviations::UnregisterScripting()
         sq_poptop(v);
     }
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 void Abbreviations::BuildMenu(wxMenuBar* menuBar)
 {
