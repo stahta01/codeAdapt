@@ -38,8 +38,10 @@
 #include <projectloader_hooks.h>
 #include <compiler.h>
 #include <compilerfactory.h>
-#include <sqplus.h>
-#include <sc_base_types.h>
+#ifdef CA_ENABLE_SCRIPTING
+    #include <sqplus.h>
+    #include <sc_base_types.h>
+#endif // #ifdef CA_ENABLE_SCRIPTING
 #include <logmanager.h>
 
 #include "resultmap.h"
@@ -98,14 +100,18 @@ void lib_finder::OnAttach()
         Manager::Get()->RegisterEventSink(cbEVT_COMPILER_SET_BUILD_OPTIONS, new cbEventFunctor<lib_finder, CodeBlocksEvent>(this, &lib_finder::OnCompilerSetBuildOptions));
     }
 
+#ifdef CA_ENABLE_SCRIPTING
     // Register scripting extensions
     RegisterScripting();
+#endif // #ifdef CA_ENABLE_SCRIPTING
 }
 
 void lib_finder::OnRelease(bool /*appShutDown*/)
 {
+#ifdef CA_ENABLE_SCRIPTING
     // unregister cripting extensions
     UnregisterScripting();
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     // Unregister project extensions
     ProjectLoaderHooks::UnregisterHook(m_HookId,true);
@@ -381,6 +387,7 @@ bool lib_finder::TryAddLibrary(CompileTargetBase* Target,LibraryResult* Result)
     return true;
 }
 
+#ifdef CA_ENABLE_SCRIPTING
 void lib_finder::RegisterScripting()
 {
     SqPlus::SQClassDef<LibFinder>("LibFinder")
@@ -404,6 +411,7 @@ void lib_finder::UnregisterScripting()
         sq_poptop(v);
     }
 }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 bool lib_finder::AddLibraryToProject(const wxString& LibName,cbProject* Project,const wxString& TargetName)
 {
