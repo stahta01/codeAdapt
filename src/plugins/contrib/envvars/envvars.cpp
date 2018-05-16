@@ -25,8 +25,10 @@
 #endif
 
 #include "projectloader_hooks.h"
-#include <sqplus.h>
-#include <sc_base_types.h>
+#ifdef CA_ENABLE_SCRIPTING
+    #include <sqplus.h>
+    #include <sc_base_types.h>
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 #include "envvars_common.h"
 #include "envvars_cfgdlg.h"
@@ -217,6 +219,7 @@ void EnvVars::OnAttach()
   Manager::Get()->RegisterEventSink(cbEVT_PROJECT_ACTIVATE, new cbEventFunctor<EnvVars, CodeBlocksEvent>(this, &EnvVars::OnProjectActivated));
   Manager::Get()->RegisterEventSink(cbEVT_PROJECT_CLOSE,    new cbEventFunctor<EnvVars, CodeBlocksEvent>(this, &EnvVars::OnProjectClosed));
 
+#ifdef CA_ENABLE_SCRIPTING
   // Register scripting
   Manager::Get()->GetScriptingManager(); // make sure the VM is initialised
   if (SquirrelVM::GetVMPtr())
@@ -230,12 +233,14 @@ void EnvVars::OnAttach()
     SqPlus::RegisterGlobal(&nsEnvVars::EnvvarApply,         "EnvvarApply"              );
     SqPlus::RegisterGlobal(&nsEnvVars::EnvvarDiscard,       "EnvvarDiscard"            );
   }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 }// OnAttach
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 
 void EnvVars::OnRelease(bool /*appShutDown*/)
 {
+#ifdef CA_ENABLE_SCRIPTING
   // Unregister scripting
   Manager::Get()->GetScriptingManager(); // make sure the VM is initialised
   HSQUIRRELVM v = SquirrelVM::GetVMPtr();
@@ -282,6 +287,7 @@ void EnvVars::OnRelease(bool /*appShutDown*/)
     sq_deleteslot(v, -2, false);
     sq_poptop(v);
   }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 }// OnRelease
 
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
