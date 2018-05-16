@@ -72,7 +72,9 @@
 #include "compilerG95.h"
 #include "compilerXML.h"
 
-#include <scripting/bindings/sc_base_types.h>
+#ifdef CA_ENABLE_SCRIPTING
+    #include <scripting/bindings/sc_base_types.h>
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
 namespace ScriptBindings
 {
@@ -401,6 +403,7 @@ void CompilerGCC::OnAttach()
     CompilerFactory::SetDefaultCompiler(Manager::Get()->GetConfigManager(_T("compiler"))->Read(_T("/default_compiler"), _T("gcc")));
     LoadOptions();
 
+#ifdef CA_ENABLE_SCRIPTING
     // register compiler's script functions
     // make sure the VM is initialized
     Manager::Get()->GetScriptingManager();
@@ -411,6 +414,7 @@ void CompilerGCC::OnAttach()
     }
     else
         ScriptBindings::gBuildLogId = -1;
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     // register event sink
     Manager::Get()->RegisterEventSink(cbEVT_PROJECT_ACTIVATE,         new cbEventFunctor<CompilerGCC, CodeBlocksEvent>(this, &CompilerGCC::OnProjectActivated));
@@ -1267,6 +1271,7 @@ int CompilerGCC::DoRunQueue()
         delete cmd;
         return ret;
     }
+#ifdef CA_ENABLE_SCRIPTING
     else if (cmd->command.StartsWith(_T("#run_script")))
     {
         // special "run_script" command
@@ -1288,6 +1293,7 @@ int CompilerGCC::DoRunQueue()
         delete cmd;
         return ret;
     }
+#endif // #ifdef CA_ENABLE_SCRIPTING
 
     wxString oldLibPath; // keep old PATH/LD_LIBRARY_PATH contents
     wxGetEnv(CB_LIBRARY_ENVVAR, &oldLibPath);
@@ -1757,7 +1763,9 @@ int CompilerGCC::RunSingleFile(const wxString& filename)
 
     if (fname.GetExt() == _T("script"))
     {
+    #ifdef CA_ENABLE_SCRIPTING
         Manager::Get()->GetScriptingManager()->LoadScript(filename);
+    #endif // #ifdef CA_ENABLE_SCRIPTING
         return 0;
     }
 
