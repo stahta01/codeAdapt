@@ -73,6 +73,7 @@
 					<Add library="codeblocks" />
 					<Add library="wxPdfDocument" />
 					<Add library="gdi32" />
+					<Add library="wx_$(WX_TOOLKIT)$(WX_SUFFIX)_stc-$(WX_VERSION).dll" />
 					<Add library="wx_$(WX_TOOLKIT)$(WX_SUFFIX)_core-$(WX_VERSION).dll" />
 					<Add library="wx_base$(WX_SUFFIX)_xml-$(WX_VERSION).dll" />
 					<Add library="wx_base$(WX_SUFFIX)-$(WX_VERSION).dll" />

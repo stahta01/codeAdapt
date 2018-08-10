@@ -79,6 +79,7 @@
 					<Add library="wxSpellChecker" />
 					<Add library="hunspell" />
 					<Add library="codeblocks" />
+					<Add library="wx_$(WX_TOOLKIT)$(WX_SUFFIX)_stc-$(WX_VERSION).dll" />
 					<Add library="wx_$(WX_TOOLKIT)$(WX_SUFFIX)_xrc-$(WX_VERSION).dll" />
 					<Add library="wx_$(WX_TOOLKIT)$(WX_SUFFIX)_adv-$(WX_VERSION).dll" />
 					<Add library="wx_$(WX_TOOLKIT)$(WX_SUFFIX)_core-$(WX_VERSION).dll" />
