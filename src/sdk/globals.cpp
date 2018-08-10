@@ -39,6 +39,8 @@
 #include <wx/msgdlg.h>
 #include <wx/tokenzr.h>
 
+#include "wx/wxscintilla.h"
+
 #include <algorithm>
 #include <string>
 
