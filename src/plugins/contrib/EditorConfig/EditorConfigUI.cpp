@@ -120,7 +120,7 @@ void EditorConfigUI::OnApply()
     es.tab_indents = chkTabIndents->IsChecked();
     es.tab_width   = spnTabWidth->GetValue();
     es.indent      = spnIndent->GetValue();
-    es.eol_mode    = choEOLMode->GetCurrentSelection(); // must be in sync with wxSCI_EOL_CRLF etc...
+    es.eol_mode    = choEOLMode->GetCurrentSelection(); // must be in sync with wxSTC_EOL_CRLF etc...
 
     EditorSettingsChangedEvent e(wxEVT_EDITOR_SETTINGS_CHANGED_EVENT, 0, es, m_Project);
     if (m_NotifiedWindow)

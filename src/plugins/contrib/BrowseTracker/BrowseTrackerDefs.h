@@ -1,18 +1,17 @@
 #ifndef BROWSEMARKERDEFS_H_INCLUDED
 #define BROWSEMARKERDEFS_H_INCLUDED
 
-//svn5785 #include "wxscintilla/include/wx/wxscintilla.h"
-#include <wx/wxscintilla.h>
+#include <wx/stc/stc.h>  // styled text control
 
     const int MaxEntries = 20;
 
     // from cbeditor.cpp
     #define BOOKMARK_MARKER        4
-    #define BOOKMARK_STYLE         wxSCI_MARK_ARROW
+    #define BOOKMARK_STYLE         wxSTC_MARK_ARROW
 
     const int BROWSETRACKER_MARKER       = 9 ;
-    const int BROWSETRACKER_MARKER_STYLE = wxSCI_MARK_DOTDOTDOT ;
-    const int BROWSETRACKER_HIDDEN_STYLE = wxSCI_MARK_EMPTY ;
+    const int BROWSETRACKER_MARKER_STYLE = wxSTC_MARK_DOTDOTDOT ;
+    const int BROWSETRACKER_HIDDEN_STYLE = wxSTC_MARK_EMPTY ;
     const int BROWSETRACKER_MARKER_MASK  = 1<<BROWSETRACKER_MARKER ;
 
 class EditorBase;

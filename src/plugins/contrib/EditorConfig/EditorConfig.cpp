@@ -264,12 +264,12 @@ bool EditorConfig::ApplyEditorSettings(EditorBase* eb)
     if (m_ECSettings[prj].indent < 0) /* set indent to tab_width here */
         control->SetIndent(control->GetTabWidth());
 
-    if      (m_ECSettings[prj].eol_mode == wxSCI_EOL_CRLF)
-        control->SetEOLMode(wxSCI_EOL_CRLF);
-    else if (m_ECSettings[prj].eol_mode == wxSCI_EOL_CR)
-        control->SetEOLMode(wxSCI_EOL_CR);
-    else if (m_ECSettings[prj].eol_mode == wxSCI_EOL_LF)
-        control->SetEOLMode(wxSCI_EOL_LF);
+    if      (m_ECSettings[prj].eol_mode == wxSTC_EOL_CRLF)
+        control->SetEOLMode(wxSTC_EOL_CRLF);
+    else if (m_ECSettings[prj].eol_mode == wxSTC_EOL_CR)
+        control->SetEOLMode(wxSTC_EOL_CR);
+    else if (m_ECSettings[prj].eol_mode == wxSTC_EOL_LF)
+        control->SetEOLMode(wxSTC_EOL_LF);
 
     return true;
 }

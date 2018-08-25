@@ -606,7 +606,7 @@ void MMSapEvents::OnMiddleMouseDown(wxMouseEvent& event, cbStyledTextCtrl* ed)
 
     int pos = ed->PositionFromPoint(wxPoint(event.GetX(), event.GetY()));
 
-    if(pos == wxSCI_INVALID_POSITION)
+    if(pos == wxSTC_INVALID_POSITION)
         return;
 
     int start = ed->GetSelectionStart();
@@ -673,7 +673,7 @@ void MMSapEvents::PasteFromClipboard( wxMouseEvent& event, cbStyledTextCtrl* ed,
     #endif
 
     int pos = ed->PositionFromPoint(wxPoint(event.GetX(), event.GetY()));
-    if(pos == wxSCI_INVALID_POSITION)
+    if(pos == wxSTC_INVALID_POSITION)
         return;
 
     int start = ed->GetSelectionStart();

@@ -122,7 +122,7 @@ private:
     void OnEditMenuUpdateUI(wxUpdateUIEvent& event);
 
 public:
-    void EditorEventHook(cbEditor* editor, wxScintillaEvent& event);
+    void EditorEventHook(cbEditor* editor, wxStyledTextEvent& event);
 
 private:
     friend class AbbreviationsConfigPanel;
