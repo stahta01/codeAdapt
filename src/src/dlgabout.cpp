@@ -127,7 +127,7 @@ dlgAbout::dlgAbout(wxWindow* parent)
         "\n"
         "All contributors that provided patches.\n"
         "The wxWidgets project (http://www.wxwidgets.org).\n"
-        "wxScintilla (http://sourceforge.net/projects/wxscintilla).\n"
+        "wxStyledTextCtrl (http://sourceforge.net/projects/wxscintilla).\n"
         "TinyXML parser (http://www.grinninglizard.com/tinyxml).\n"
         "Squirrel scripting language (http://www.squirrel-lang.org).\n"
         "The GNU Software Foundation (http://www.gnu.org).\n"
@@ -138,7 +138,7 @@ dlgAbout::dlgAbout(wxWindow* parent)
     XRCCTRL(*this, "lblVersion", wxStaticText)->SetLabel(appglobals::AppActualVersionVerb);
     XRCCTRL(*this, "lblSDK",     wxStaticText)->SetLabel(appglobals::AppSDKVersion);
 #if wxCHECK_VERSION(3, 0, 0)
-    const wxVersionInfo scintillaVersion = wxScintilla::GetLibraryVersionInfo();
+    const wxVersionInfo scintillaVersion = wxStyledTextCtrl::GetLibraryVersionInfo();
     const wxString scintillaStr = wxString::Format(wxT("%d.%d.%d"),
                                                    scintillaVersion.GetMajor(),
                                                    scintillaVersion.GetMinor(),

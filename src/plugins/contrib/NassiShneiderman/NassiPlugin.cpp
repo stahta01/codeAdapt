@@ -298,7 +298,7 @@ void NassiPlugin::BuildModuleMenu(const ModuleType type, wxMenu* menu, const Fil
     wxMenu *NassiMenu = 0;
 
     // check if user can select to generate a diagram from selection
-    if ( stc->GetLexer() == wxSCI_LEX_CPP && stc->GetSelectionEnd() - stc->GetSelectionStart() > 0 )
+    if ( stc->GetLexer() == wxSTC_LEX_CPP && stc->GetSelectionEnd() - stc->GetSelectionStart() > 0 )
     {
         if (! NassiMenu ) NassiMenu = new wxMenu();
         NassiMenu->Append(idParseC, _("Create diagram"));
@@ -312,7 +312,7 @@ void NassiPlugin::BuildModuleMenu(const ModuleType type, wxMenu* menu, const Fil
         if ( NassiEditorPanel::IsNassiEditor( ed ) )
             names.Add(ed->GetTitle( ) );
     }
-    if ( stc->GetLexer() == wxSCI_LEX_CPP && names.GetCount() > 0 )
+    if ( stc->GetLexer() == wxSTC_LEX_CPP && names.GetCount() > 0 )
     {
         if (! NassiMenu )
         {
@@ -403,7 +403,7 @@ void NassiPlugin::ParseC(wxCommandEvent & /*event*/)
 
     switch ( stc->GetLexer() )
     {
-        case wxSCI_LEX_CPP:
+        case wxSTC_LEX_CPP:
         {
             const wxString str = stc->GetSelectedText();
             if ( !panel->ParseC(str) )
@@ -446,7 +446,7 @@ void NassiPlugin::OnInsertCFromDiagram(wxCommandEvent &event)
                 if ( !ned ) return;
                 ned->GetCSource(text_stream, indent);
 
-                stc->InsertText(wxSCI_INVALID_POSITION, ostrstream.GetString());
+                stc->InsertText(wxSTC_INVALID_POSITION, ostrstream.GetString());
 
             }
             //some comment
@@ -647,7 +647,7 @@ void NassiPlugin::OnUpdateUIMenuItem(wxUpdateUIEvent &event)
         if (edb && edb->IsBuiltinEditor())
         {
             cbStyledTextCtrl* stc = static_cast<cbEditor*>(edb)->GetControl();
-            if (stc && stc->GetLexer() == wxSCI_LEX_CPP)
+            if (stc && stc->GetLexer() == wxSTC_LEX_CPP)
                 enable = edb->HasSelection();
         }
     }

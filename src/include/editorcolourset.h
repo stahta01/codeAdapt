@@ -9,7 +9,8 @@
 #include <wx/dynarray.h>
 #include <wx/hashmap.h>
 #include <wx/intl.h>
-#include <wx/wxscintilla.h> // wxSCI_KEYWORDSET_MAX
+#include "wx/stc/stc.h"  // styled text control
+//#include <wx/wxscintilla.h> // wxSTC_KEYWORDSET_MAX
 #include "settings.h"
 #include "globals.h" // HighlightLanguage
 
@@ -60,7 +61,7 @@ struct OptionSet
 {
     wxString m_Langs;
     OptionColours m_Colours;
-    wxString m_Keywords[wxSCI_KEYWORDSET_MAX + 1]; // wxSCI_KEYWORDSET_MAX+1 keyword sets
+    wxString m_Keywords[wxSTC_KEYWORDSET_MAX + 1]; // wxSTC_KEYWORDSET_MAX+1 keyword sets
     wxArrayString m_FileMasks;
     int m_Lexers;
     wxString m_SampleCode;
@@ -68,7 +69,7 @@ struct OptionSet
     int m_DebugLine;
     int m_ErrorLine;
 
-    wxString m_originalKeywords[wxSCI_KEYWORDSET_MAX + 1]; // wxSCI_KEYWORDSET_MAX+1 keyword sets
+    wxString m_originalKeywords[wxSTC_KEYWORDSET_MAX + 1]; // wxSTC_KEYWORDSET_MAX+1 keyword sets
     wxArrayString m_originalFileMasks;
 
     CommentToken comment;
@@ -84,7 +85,7 @@ class DLLIMPORT EditorColourSet
         ~EditorColourSet();
 
         HighlightLanguage AddHighlightLanguage(int lexer, const wxString& name);
-        HighlightLanguage GetHighlightLanguage(int lexer); // from scintilla lexer (wxSCI_LEX_*)
+        HighlightLanguage GetHighlightLanguage(int lexer); // from scintilla lexer (wxSTC_LEX_*)
         HighlightLanguage GetHighlightLanguage(const wxString& name);
         wxArrayString GetAllHighlightLanguages();
 
